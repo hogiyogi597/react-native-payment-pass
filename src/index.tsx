@@ -15,12 +15,13 @@ export interface DigitalWalletProvisionRequestParams {
 }
 
 type CanAddPaymentPass = (
-  paymentRefrenceId: string
+  paymentReferenceId: string
 ) => Promise<AddPaymentPassStatus>;
 
 type AddPaymentPass = (
   cardHolderName: string,
   lastFour: string,
+  paymentNetwork: string,
   paymentReferenceId: string,
   successCallback: (params: DigitalWalletProvisionRequestParams) => void,
   errorCallback?: (error: string) => void
@@ -50,6 +51,7 @@ function noop(): void {}
 const addPaymentPass: AddPaymentPass = (
   cardHolderName,
   lastFour,
+  paymentNetwork,
   paymentReferenceId,
   successCallback,
   errorCallback
@@ -57,6 +59,7 @@ const addPaymentPass: AddPaymentPass = (
   PaymentPassModule.addPaymentPass(
     cardHolderName,
     lastFour,
+    paymentNetwork,
     paymentReferenceId,
     successCallback,
     errorCallback ? errorCallback : noop

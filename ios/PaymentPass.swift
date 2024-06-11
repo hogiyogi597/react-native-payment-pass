@@ -16,9 +16,9 @@ class PaymentPass: NSObject {
   }
 
   @objc(canAddPaymentPass:resolve:rejecter:)
-  func canAddPaymentPass(_ paymentRefrenceId: String, resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) -> Void {
+  func canAddPaymentPass(_ paymentReferenceId: String, resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) -> Void {
     if PKAddPaymentPassViewController.canAddPaymentPass() {
-      if PKPassLibrary().canAddPaymentPass(withPrimaryAccountIdentifier: paymentRefrenceId) {
+      if PKPassLibrary().canAddPaymentPass(withPrimaryAccountIdentifier: paymentReferenceId) {
         resolve("CAN_ADD")
       } else {
         resolve("ALREADY_ADDED")
@@ -28,8 +28,8 @@ class PaymentPass: NSObject {
     }
   }
 
-  @objc(addPaymentPass:lastFour:paymentReferenceId:successCallback:errorCallback:)
-  func addPaymentPass(_ cardHolderName: String, lastFour: String, paymentRefrenceId: String = "", successCallback: @escaping RCTResponseSenderBlock, errorCallback: @escaping RCTResponseSenderBlock) -> Void {
+  @objc(addPaymentPass:lastFour:paymentNetwork:paymentReferenceId:successCallback:errorCallback:)
+  func addPaymentPass(_ cardHolderName: String, lastFour: String, paymentNetwork: String, paymentReferenceId: String = "", successCallback: @escaping RCTResponseSenderBlock, errorCallback: @escaping RCTResponseSenderBlock) -> Void {
     pkAddPaymentErrorCallback = errorCallback
     pkAddPaymentSuccessCallback = successCallback
 
@@ -41,9 +41,8 @@ class PaymentPass: NSObject {
       }
       requestConfiguration.cardholderName = cardHolderName
       requestConfiguration.primaryAccountSuffix = lastFour
-      // Since we only issue visa cards
-      requestConfiguration.paymentNetwork = .visa
-      requestConfiguration.primaryAccountIdentifier = paymentRefrenceId
+      requestConfiguration.paymentNetwork = PKPaymentNetwork.init(rawValue: paymentNetwork)
+      requestConfiguration.primaryAccountIdentifier = paymentReferenceId
       guard let addPaymentPassViewController = PKAddPaymentPassViewController(requestConfiguration:
                                                                                 requestConfiguration, delegate: self) else {
         errorCallback(["BLOCKED"])

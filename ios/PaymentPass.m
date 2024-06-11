@@ -10,6 +10,7 @@ RCT_EXTERN_METHOD(
 RCT_EXTERN_METHOD(
                   addPaymentPass: (NSString *) cardHolderName
                   lastFour: (NSString *) lastFour
+                  paymentNetwork: (NSString *) paymentNetwork
                   paymentReferenceId: (NSString *) paymentReferenceId
                   successCallback: (RCTResponseSenderBlock)successCallback
                   errorCallback: (RCTResponseSenderBlock) errorCallback

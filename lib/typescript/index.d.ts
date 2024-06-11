@@ -10,8 +10,8 @@ export interface DigitalWalletProvisionRequestParams {
     nonce_signature: string;
     app_version: string;
 }
-declare type CanAddPaymentPass = (paymentRefrenceId: string) => Promise<AddPaymentPassStatus>;
-declare type AddPaymentPass = (cardHolderName: string, lastFour: string, paymentReferenceId: string, successCallback: (params: DigitalWalletProvisionRequestParams) => void, errorCallback?: (error: string) => void) => void;
+declare type CanAddPaymentPass = (paymentReferenceId: string) => Promise<AddPaymentPassStatus>;
+declare type AddPaymentPass = (cardHolderName: string, lastFour: string, paymentNetwork: string, paymentReferenceId: string, successCallback: (params: DigitalWalletProvisionRequestParams) => void, errorCallback?: (error: string) => void) => void;
 declare type FinalizeAddCard = (encryptedPassData: string, activationData: string, ephemeralPublicKey: string, successCallback: () => void, errorCallback?: (error: string) => void) => void;
 declare type RemoveSuspendedCard = (paymentReferenceId: string) => Promise<void>;
 declare type PaymentPassType = {
