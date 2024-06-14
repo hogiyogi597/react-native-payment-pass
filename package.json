@@ -1,6 +1,6 @@
 {
   "name": "react-native-payment-pass",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Novus react-native package to add card to apple wallet",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
